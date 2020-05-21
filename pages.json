@@ -1,0 +1,46 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/user/login",
+			"style": {
+				"navigationBarTitleText": "登录界面"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/index/userlist",
+			"style": {
+				"navigationBarTitleText": "代理管理"
+			}
+		},
+		{
+			"path": "pages/index/yunOrder",
+			"style": {
+				"navigationBarTitleText": "云仓进货单页面"
+			}
+		},
+		{
+			"path": "pages/index/yunOrderdelivery",
+			"style": {
+				"navigationBarTitleText": "云仓提货单页面"
+			}
+		},
+		{
+			"path": "pages/index/userfeedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/user/login",
+    "pages/index/index",
+    "pages/index/userlist",
+    "pages/index/yunOrder",
+    "pages/index/yunOrderdelivery",
+    "pages/index/userfeedback"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "云仓进货单页面",
+  "usingComponents": {
+    "paging": "/components/yang-paging/fy"
+  }
+}

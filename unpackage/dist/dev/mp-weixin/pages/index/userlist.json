@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "代理管理",
+  "usingComponents": {
+    "paging": "/components/yang-paging/fy"
+  }
+}

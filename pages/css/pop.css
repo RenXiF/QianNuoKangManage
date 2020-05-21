@@ -1,0 +1,76 @@
+//弹窗样式
+	.pop_button {
+		margin-top: 260px;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		font-size: 10px;
+		color: #ffffff;
+		background-color: #ffa600;
+	}
+	.server_pop {
+		padding: 30px;
+		.pop_tit {
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+			height: 50px;
+			font-size: 30px;
+			color: #333333;
+		}
+		.pop_num{
+			align-items: center;
+			font-size: 30px;
+			color: #333333;
+			.price_right {
+				width: 22%;
+				align-items: center;
+				font-size: 10px;
+			
+				.right_reduce {
+					color: #FFA600;
+					font-size: 10px;
+					margin-right: 2px;
+				}
+			
+				.right_add {
+					color: #FFA600;
+					font-size: 10px;
+				}
+			}
+		}
+	
+		.pop_cont {
+			justify-content: flex-start;
+			align-items: center;
+			flex-wrap: wrap;
+			text{
+				font-size: 20px;
+				margin-bottom: 5px;
+			}
+			textarea{
+				margin-bottom: 5px;
+				border: #999999 1px solid;
+				padding: 5px 10px;
+			}
+	
+			.cont_item {
+				margin-bottom: 30px;
+				margin-right: 30px;
+				padding: 10px 20px;
+				text-align: center;
+				font-size: 10px;
+				color: #a1a1a1;
+				border-radius: 15px;
+				border: 2px solid #f5f5f5;
+	
+				text {}
+	
+				&.active {
+					background-color: #ffa600;
+					color: #ffffff;
+				}
+			}
+		}
+	}
