@@ -68,7 +68,8 @@
 							<text>数量</text>
 							<text class="block_noe_blck_order">订单号</text>
 							<text class="block_noe_blck_order" v-if="status==1 && mensname.id==2">物流号</text>
-							<text class="block_noe_blck_order" v-if="status==2 && mensname.id==3">物流号</text>
+							<text class="block_noe_blck_order" v-if="status==2 && mensname.id==2">物流号</text>
+							<text class="block_noe_blck_order" v-if="mensname.id==3">物流号</text>
 							<text class="block_noe_blck_data">创建时间</text>
 							<text class="block_noe_blck_data">更新时间</text>
 							<text>状态</text>
@@ -99,6 +100,8 @@
 											<text>{{item.quantity}}</text>
 											<text class="block_noe_blck_order">{{ item.orderNo }}</text>
 											<text class="block_noe_blck_order" v-if="item.logistics!=null">{{ item.logistics }}</text>
+											<text class="block_noe_blck_order" v-if="item.logistics==null && status!=0 && mensname.id==2">暂无物流号</text>
+											<text class="block_noe_blck_order" v-if="item.logistics==null && mensname.id==3">暂无物流号</text>
 											<text class="block_noe_blck_data" v-if="item.createTime">{{ item.createTime.substring(0,16)}}</text>
 											<text class="block_noe_blck_data" v-if="item.updateTime">{{ item.updateTime.substring(0,16)}}</text>
 											<text v-if="item.status==0">未发货</text>

@@ -3,13 +3,7 @@
 	<view class="index">
 		<view class="index1 flex-between">
 			<!-- 侧边栏 -->
-			<view class="mens flex_columns ">
-				<view class="mens_block flex_columns" v-for="(item, index) in zumen">
-					<view class="mens_one flex-between flex-center" @click="doUrl(item.http)" :class="item.id == sorttid ? 'mens_one_active' : ''">
-						<text>{{item.name}}</text>
-					</view>
-				</view>
-			</view>
+			<mens :men="zumen" :showit="sorttid"></mens>
 			<!-- end -->
 			<view class="index_block flex_columns">
 				<view class="user_index flex-between flex-center">
@@ -172,9 +166,12 @@
 
 <script>
 	import paging from '@/components/yang-paging/fy.vue'
+	import mens from "../../components/mens.vue"
+	import menu from '@/config/menu-config'
 export default {
 	components:{
-		paging
+		paging,
+		mens
 	},
 	data() {
 		return {
@@ -182,44 +179,7 @@ export default {
 			sorttid:1,
 			sorttid2:0,
 			disabled:false,
-			zumen: [
-				{
-					name: '查询全部代理',
-					id: 1,
-					sortt:0,
-					http:'/pages/index/userlist'
-				},
-				{
-					name: '查询审核订单',
-					id: 2,
-					sortt:1,
-					http:'/pages/index/index'
-				},
-				{
-					name: '查询所有订单',
-					id: 3,
-					sortt:2,
-					http:'/pages/index/index'
-				},
-				{
-					name: '查询所有云进订单',
-					id: 4,
-					sortt:3,
-					http:'/pages/index/yunOrder'
-				},
-				{
-					name: '查询所有云提货单',
-					id: 6,
-					sortt:3,
-					http:'/pages/index/yunOrderdelivery'
-				},
-				{
-					name: '查询信息反馈',
-					id: 5,
-					sortt:4,
-					http:'/pages/index/userfeedback'
-				}
-			],
+			zumen: menu,
 			stourname:[
 				{name:'全部',id:0},
 				{name:'总代理',id:1},
@@ -338,8 +298,8 @@ export default {
 				} else{
 					// console.log('------------------------------');
 					// console.log(this.mensname.id);
-					console.log('------------------------------');
-					console.log(res);
+					// console.log('------------------------------');
+					// console.log(res);
 					this.menuLists = res.data.list;
 					this.pageNum = res.data.pageNum;
 					this.navigatepageNums = res.data.navigatepageNums;
@@ -362,41 +322,6 @@ export default {
 	min-height: 1080px;
 	padding-right: 30px;
 	background-color: #F3F3F3;
-}
-.mens {
-	width: 13%;
-	min-height: 100%;
-	background-color: #304156;
-	text {
-		color: #bfcbd9;
-	}
-	.mens_block {
-		width: 100%;
-		
-		.mens_one {
-			width: 100%;
-			height: 50px;
-			border-bottom: #273445 1px solid;
-			// background-color: #00152a;
-			text {
-				padding: 0 10px;
-				font-size: 20px;
-			}
-			image {
-				width: 30px;
-			}
-		}
-		.mens_one_active {
-			background-color: #00152a;
-			// -webkit-transform: scale(1.2);
-			// transform: scale(1.1);
-		}
-		.mens_one:hover {
-			// background-color: #273445;
-			background-color: #1f2d3d;
-			// background-color: #00152a;
-		}
-	}
 }
 
 // 右块
