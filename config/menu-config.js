@@ -8,13 +8,13 @@ module.exports = [{
 		name: '查询审核订单',
 		id: 2,
 		sortt: 1,
-		http: '/pages/index/index'
+		http: '/pages/index/reviewOrder'
 	},
 	{
-		name: '查询所有订单',
+		name: '查询普通订单',
 		id: 3,
 		sortt: 2,
-		http: '/pages/index/index'
+		http: '/pages/index/allOrder'
 	},
 	{
 		name: '查询云进货单',

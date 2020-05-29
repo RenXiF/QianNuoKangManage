@@ -51,7 +51,7 @@
 						console.log(res);
 						uni.hideLoading();
 						this.utils.success('登录成功！', () => {
-							this.doUrl('/pages/index/index');
+							this.doUrl('/pages/index/userlist');
 						});
 					}).catch(err => {
 						uni.hideLoading();

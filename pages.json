@@ -19,6 +19,18 @@
 			}
 		},
 		{
+			"path": "pages/index/reviewOrder",
+			"style": {
+				"navigationBarTitleText": "审核订单页面"
+			}
+		},
+		{
+			"path": "pages/index/allOrder",
+			"style": {
+				"navigationBarTitleText": "普通订单页面"
+			}
+		},
+		{
 			"path": "pages/index/yunOrder",
 			"style": {
 				"navigationBarTitleText": "云仓进货单页面"
