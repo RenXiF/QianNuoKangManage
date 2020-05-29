@@ -520,13 +520,7 @@ export default {
 					
 				}
 				.block_noe_blck_payment{
-					// width: 150px;
 					color: #DD524D;
-					text{
-						// width: 150px;
-						
-					}
-					
 				}
 
 				.block_noe_blck_default{

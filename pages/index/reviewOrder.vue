@@ -31,6 +31,7 @@
 							<text>名字</text>
 							<text class="block_noe_blck_data">电话号码</text>
 							<text>数量</text>
+							<text>金额</text>
 							<text class="block_noe_blck_order">订单号</text>
 							<text class="block_noe_blck_order" v-if="sorttid2!=0">物流号</text>
 							<text class="block_noe_blck_data">创建时间</text>
@@ -48,6 +49,7 @@
 											<text v-if="item.spareThree!=null">{{ item.spareThree }}</text>
 											<text class="block_noe_blck_data">{{ item.storePhone }}</text>
 											<text>{{item.quantity}}</text>
+											<text class="block_noe_blck_payment">￥{{item.payment}}</text>
 											<text class="block_noe_blck_order">{{ item.orderNo }}</text>
 											<text class="block_noe_blck_order" v-if="item.logistics!=null && item.status!=0">{{ item.logistics }}</text>
 											<text class="block_noe_blck_order" v-if="item.logistics==null && item.status!=0">暂无物流号</text>
@@ -526,6 +528,9 @@ export default {
 						text-align: center;
 					}
 					
+				}
+				.block_noe_blck_payment{
+					color: #DD524D;
 				}
 
 				.block_noe_blck_default{
