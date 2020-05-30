@@ -432,7 +432,8 @@ export default {
 		min-height: 70px;
 		
 		text{
-			font-size: 20px;
+			font-size: 25px;
+			font-weight: 700;
 			margin-left: 30px;
 		}
 	}
@@ -454,6 +455,7 @@ export default {
 			margin-left: 30px;
 			// color: #FF5733;
 			color: #ffffff;
+			cursor: pointer;
 			box-shadow: 1px 2px 6px #f55866;
 			background: linear-gradient(0deg, rgba(246, 62, 100, 1), rgba(244, 106, 103, 1));
 			border-radius: 15px;

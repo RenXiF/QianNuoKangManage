@@ -83,7 +83,7 @@
 
 <style lang="scss">
 .mens {
-	width: 13%;
+	min-width: 200px;
 	min-height: 100%;
 	background-color: #304156;
 	text {
@@ -100,6 +100,7 @@
 			text {
 				padding: 0 10px;
 				font-size: 20px;
+				// font-weight: 600;
 			}
 			image {
 				width: 30px;

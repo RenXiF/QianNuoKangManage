@@ -103,6 +103,7 @@
 			line-height: 50px;
 			padding: 0px 20px;
 			// color: #FF5733;
+			cursor: pointer;
 			color: #FFFFFF;
 			box-shadow: 1px 2px 6px #F55866;
 			background: linear-gradient(0deg,rgba(246,62,100,1),rgba(244,106,103,1));

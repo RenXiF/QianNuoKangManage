@@ -10,7 +10,7 @@
 					<text>查询云进货单</text>
 					<view class=" flex-center flex_row_reverse">
 						<text @click="loginout()">退出登录</text>
-						<text>{{userlist.storeUsername}}</text>
+						<text>{{ userlist.storeUsername }}</text>
 					</view>
 				</view>
 				<!-- 搜索标题 -->
@@ -21,9 +21,9 @@
 				<!-- 小标题栏 -->
 				<view class="block_noe_blck flex_columns">
 					<view class="block_noe_blck_tit flex-center flex_rows">
-						<text :class="item.id == sorttid2 ? 'block_noe_blck_hover' : ''" v-for="(item,index) in stourname" @click="sorttid2ck(item.id)">{{item.name}}</text>
+						<text :class="item.id == sorttid2 ? 'block_noe_blck_hover' : ''" v-for="(item, index) in stourname" :key='index' @click="sorttid2ck(item.id)">{{ item.name }}</text>
 					</view>
-						<!-- 表格 -->
+					<!-- 表格 -->
 					<view class="block_noe_blck_bk flex_columns">
 						<view class="block_noe_blck_bk_tit flex-center flex_rows">
 							<text>序号</text>
@@ -31,6 +31,7 @@
 							<text>名字</text>
 							<text class="block_noe_blck_data">电话号码</text>
 							<text>数量</text>
+							<text>金额</text>
 							<text class="block_noe_blck_order">订单号</text>
 							<!-- <text class="block_noe_blck_order">物流号</text> -->
 							<text class="block_noe_blck_data">创建时间</text>
@@ -39,46 +40,51 @@
 						</view>
 
 						<view class="block_noe_blck_bk_two">
-								<!-- 多个复选框，带全选 -->
-								<view class="content_list_one">
-									<view class="flex_columns" v-if="menuLists">
-										<view class="content_list_one_bl flex-center flex_rows" v-for="(item,index) in menuLists" v-if="sorttid2==2 || sorttid2==item.status">
-											<text>{{ index+1 }}</text>
-											<text>{{ item.id }}</text>
-											<text v-if="item.spaceOne">{{ item.spaceOne }}</text>
-											<text v-if="!item.spaceOne">暂无名字</text>
-											<!-- <text v-if="menuLists.id==2">{{ item.storeName }}</text>
+							<!-- 多个复选框，带全选 -->
+							<view class="content_list_one">
+								<view class="flex_columns" v-if="menuLists">
+									<view class="content_list_one_bl flex-center flex_rows" v-for="(item, index) in menuLists" :key='index' v-if="sorttid2 == 2 || sorttid2 == item.status">
+										<text>{{ index + 1 }}</text>
+										<text>{{ item.id }}</text>
+										<text v-if="item.spaceOne">{{ item.spaceOne }}</text>
+										<text v-if="!item.spaceOne">暂无名字</text>
+										<!-- <text v-if="menuLists.id==2">{{ item.storeName }}</text>
 											<text v-if="menuLists.id==3">{{ item.spareThree }}</text> -->
-											<text class="block_noe_blck_data">{{ item.storePhone }}</text>
-											<text>{{item.quantity}}</text>
-											<text class="block_noe_blck_order">{{ item.orderNo }}</text>
-											<text class="block_noe_blck_order" v-if="item.logistics!=null">{{ item.logistics }}</text>
-											<text class="block_noe_blck_data" v-if="item.createTime">{{ item.createTime.substring(0,16)}}</text>
-											<text class="block_noe_blck_data" v-if="item.updateTime">{{ item.updateTime.substring(0,16)}}</text>
-											<text v-if="item.status==0">未发货</text>
-											<text v-if="item.status==1">已发货</text>
-											<text v-if="item.status==2">已收货</text>
-											<view class="content_list_one_bl_default_user flex-center">
-												<button type="default" @click="deliverdizhi(item.adderss)">查询</button>
-												<button type="default" @click="delivergoods(item)" v-if="item.status==0">发货</button>
-											</view>
-											<!-- <view class="content_list_one_bl_default_user flex-center" v-if="item.status==0">
+										<text class="block_noe_blck_data">{{ item.storePhone }}</text>
+										<text>{{ item.quantity }}</text>
+										<text class="block_noe_blck_payment">￥{{ item.payment }}</text>
+										<text class="block_noe_blck_order">{{ item.orderNo }}</text>
+										<text class="block_noe_blck_order" v-if="item.logistics != null">{{ item.logistics }}</text>
+										<text class="block_noe_blck_data" v-if="item.createTime">{{ item.createTime.substring(0, 16) }}</text>
+										<text class="block_noe_blck_data" v-if="item.updateTime">{{ item.updateTime.substring(0, 16) }}</text>
+										<text v-if="item.status == 0">未发货</text>
+										<text v-if="item.status == 1">已发货</text>
+										<text v-if="item.status == 2">已收货</text>
+										<view class="content_list_one_bl_default_user flex-center">
+											<button type="default" @click="deliverdizhi(item.adderss)">查询</button>
+											<button type="default" @click="delivergoods(item)" v-if="item.status == 0">发货</button>
+										</view>
+										<!-- <view class="content_list_one_bl_default_user flex-center" v-if="item.status==0">
 												<button type="default" @click="confirmusere(item)">发货</button>
 												<input type="text" value="" v-model="wuliuNo" placeholder="请输入物流单号" v-show="inputshow==item.orderNo"/>
 											</view> -->
-
-										</view>
-										
-									</view>
-									<view style="height: 100%; width: 100%; text-align: center; font-size: 30px;" v-else>
-										<text>暂无订单</text>
 									</view>
 								</view>
-								<view class="pages flex-center" v-if="menuLists">
-									<view class="pages_number flex-center flex-around">
-										<paging :pageSize="pageSize" :total="total" activecolor="#FFFFFF" activebackground="#DD524D" :footer="true" :current="1" @changes="add"></paging>
-									</view>
+								<view style="height: 100%; width: 100%; text-align: center; font-size: 30px;" v-else><text>暂无订单</text></view>
+							</view>
+							<view class="pages flex-center" v-if="menuLists">
+								<view class="pages_number flex-center flex-around">
+									<paging
+										:pageSize="pageSize"
+										:total="total"
+										activecolor="#FFFFFF"
+										activebackground="#DD524D"
+										:footer="true"
+										:current="1"
+										@changes="add"
+									></paging>
 								</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -94,16 +100,20 @@
 				</view>
 				<view class="pop_cont flex_columns">
 					<view class=" flex-center flex-around">
-						<text>姓名：</text><textarea :value="listdazhi.receiverName" auto-height="true" placeholder="" />
+						<text>姓名：</text>
+						<textarea :value="listdazhi.receiverName" auto-height="true" placeholder="" />
 					</view>
 					<view class=" flex-center flex-around">
-						<text>电话：</text><textarea :value="listdazhi.receiverMobile" auto-height="true" placeholder="" />
+						<text>电话：</text>
+						<textarea :value="listdazhi.receiverMobile" auto-height="true" placeholder="" />
 					</view>
 					<view class=" flex-center flex-around">
-						<text>地址：</text><textarea :value="listdazhi.receiverAddress" auto-height="true" placeholder="" />
+						<text>地址：</text>
+						<textarea :value="listdazhi.receiverAddress" auto-height="true" placeholder="" />
 					</view>
 					<view class=" flex-center flex-around">
-						<text>编码：</text><textarea :value="listdazhi.receiverZip" auto-height="true" placeholder="" />
+						<text>编码：</text>
+						<textarea :value="listdazhi.receiverZip" auto-height="true" placeholder="" />
 					</view>
 				</view>
 			</view>
@@ -114,44 +124,40 @@
 </template>
 
 <script>
-	import paging from '@/components/yang-paging/fy.vue'
-	import popup from '@/components/basis/popup.vue';
-	import mens from "../../components/mens.vue"
-	import menu from '@/config/menu-config'
+import paging from '@/components/yang-paging/fy.vue';
+import popup from '@/components/basis/popup.vue';
+import mens from '../../components/mens.vue';
+import menu from '@/config/menu-config';
 export default {
-	components:{
+	components: {
 		paging,
 		popup,
 		mens
 	},
 	data() {
 		return {
-			userlist:'',//user用户
-			sorttid:4,
-			sorttid2:2,
-			disabled:false,
+			userlist: '', //user用户
+			sorttid: 4,
+			sorttid2: 2,
+			disabled: false,
 			zumen: menu,
-			stourname:[
-				{name:'全部',id:2},
-				{name:'未发货',id:0},
-				{name:'已发货',id:1}
-			],
-			menuLists:[],
-			querySearch:null,//用户输入内容
-			navigatepageNums:null,
-			pageNum:1,//第几页
-			pages:0,//总页数
-			pageSize:0,//每页数
-			total:0,//数据总条数
-			confirmuser:null,
-			wuliuNo:'',//用户输入物流号
-			inputshow:0,
-			showSpecifications:false,
-			listdazhi:{
-				receiverName:'',
-				receiverMobile:'',
-				receiverAddress:'',
-				receiverZip:''
+			stourname: [{ name: '全部', id: 2 }, { name: '未发货', id: 0 }, { name: '已发货', id: 1 }],
+			menuLists: [],
+			querySearch: null, //用户输入内容
+			navigatepageNums: null,
+			pageNum: 1, //第几页
+			pages: 0, //总页数
+			pageSize: 0, //每页数
+			total: 0, //数据总条数
+			confirmuser: null,
+			wuliuNo: '', //用户输入物流号
+			inputshow: 0,
+			showSpecifications: false,
+			listdazhi: {
+				receiverName: '',
+				receiverMobile: '',
+				receiverAddress: '',
+				receiverZip: ''
 			}
 		};
 	},
@@ -161,7 +167,7 @@ export default {
 	onShow() {
 		this.userlist = uni.getStorageSync('userlist'); //加载用户缓存
 		console.log(this.userlist);
-		if (this.userlist=='') {
+		if (this.userlist == '') {
 			this.utils.error('账号未登录！', () => {
 				// this.doUrl('/pages/index/index');
 				// this.utils.navback();
@@ -174,7 +180,7 @@ export default {
 		SpecificationsShow() {
 			this.showSpecifications = true;
 		},
-		
+
 		SpecificationsClose() {
 			this.showSpecifications = false;
 			this.listdazhi.receiverName = '';
@@ -182,33 +188,32 @@ export default {
 			this.listdazhi.receiverAddress = '';
 			this.listdazhi.receiverZip = '';
 		},
-		deliverdizhi(item){
+		deliverdizhi(item) {
 			if (item) {
 				this.utils.showloading();
-				this.http.getApi('/shippings/GetShipping', {ShippingID:item}, 'get', this.userlist.storeOpendid)
-				.then(res => {
-					uni.hideLoading();
-					console.log(res);
-					this.listdazhi.receiverName = res.data.receiverName;
-					this.listdazhi.receiverMobile = res.data.receiverMobile;
-					this.listdazhi.receiverAddress = res.data.receiverProvince + res.data.receiverCity + res.data.receiverDistrict + res.data.receiverAddress;
-					this.listdazhi.receiverZip = res.data.receiverZip;
-					console.log(this.listdazhi);
-					// this.utils.success('查询成功！');
-					this.SpecificationsShow();
-				})
-				.catch(err => {
-					console.log(err);
-					this.utils.success(err.msg);
-					uni.hideLoading();
-				});
-			} else{
-				
+				this.http
+					.getApi('/shippings/GetShipping', { ShippingID: item }, 'get', this.userlist.storeOpendid)
+					.then(res => {
+						uni.hideLoading();
+						console.log(res);
+						this.listdazhi.receiverName = res.data.receiverName;
+						this.listdazhi.receiverMobile = res.data.receiverMobile;
+						this.listdazhi.receiverAddress = res.data.receiverProvince + res.data.receiverCity + res.data.receiverDistrict + res.data.receiverAddress;
+						this.listdazhi.receiverZip = res.data.receiverZip;
+						console.log(this.listdazhi);
+						// this.utils.success('查询成功！');
+						this.SpecificationsShow();
+					})
+					.catch(err => {
+						console.log(err);
+						this.utils.success(err.msg);
+						uni.hideLoading();
+					});
+			} else {
 			}
-			
 		},
 		//退出登录
-		loginout(){
+		loginout() {
 			uni.removeStorageSync('userlist');
 			this.userlist = '';
 			this.utils.success('退出成功！', () => {
@@ -217,28 +222,29 @@ export default {
 			});
 		},
 		// 搜索
-		userquery(){
+		userquery() {
 			if (this.querySearch != null) {
 				this.sorttid2 = 2;
 				this.utils.showloading();
-				this.http.getApi('/yunorder/getOneOrder',{OrderNo:this.querySearch}, 'get', this.userlist.storeOpendid).then(res => {
-					uni.hideLoading();
-					console.log(res);
-					// this.confirmuser = null;
-					this.menuLists = [res.data];
-					this.utils.success('查询成功！', () => {
+				this.http
+					.getApi('/yunorder/getOneOrder', { OrderNo: this.querySearch }, 'get', this.userlist.storeOpendid)
+					.then(res => {
+						uni.hideLoading();
+						console.log(res);
+						// this.confirmuser = null;
+						this.menuLists = [res.data];
+						this.utils.success('查询成功！', () => {});
+					})
+					.catch(err => {
+						console.log(err);
+						uni.hideLoading();
+						this.utils.success(err.msg, () => {
+							// this.doUrl('/pages/user/login');
+							// this.utils.navback();
+						});
 					});
-				})
-				.catch(err => {
-					console.log(err);
-					uni.hideLoading();
-					this.utils.success(err.msg, () => {
-						// this.doUrl('/pages/user/login');
-						// this.utils.navback();
-					});
-				});
-			} else{
-				this.utils.alert('请输入查询的参数',()=>{
+			} else {
+				this.utils.alert('请输入查询的参数', () => {
 					return;
 				});
 			}
@@ -253,75 +259,75 @@ export default {
 				// this.judgeOrder(this.status);
 			}
 		},
-		modifyuser(item){
+		modifyuser(item) {
 			this.confirmuser = item;
-				console.log(this.confirmuser);
-				this.utils.error('请在顶部输入框内输入需要修改的参数！', () => {
-					
-				});
-			
+			console.log(this.confirmuser);
+			this.utils.error('请在顶部输入框内输入需要修改的参数！', () => {});
 		},
 		// 云仓提货发货
-		confirmusere(item){
+		confirmusere(item) {
 			console.log(item);
-			if (this.inputshow!= item.orderNo) {
+			if (this.inputshow != item.orderNo) {
 				this.inputshow = item.orderNo;
-				this.utils.alert('请输入物流单号',()=>{
+				this.utils.alert('请输入物流单号', () => {
 					// _this.utils.navback();
 				});
-			}else{
-				if(this.wuliuNo==''){
+			} else {
+				if (this.wuliuNo == '') {
 					this.wuliuNo = '暂无物流号';
 					this.utils.showloading();
-					this.http.getApi('/yunorder/delivery',{orderNo:this.inputshow,StoreUserId:item.storeId}, 'get', this.userlist.storeOpendid).then(res => {
-						uni.hideLoading();
-						console.log(res);
-						// this.confirmuser = null;
-						this.utils.success('发货成功！', () => {
-							// this.doUrl('/pages/user/login');
-							// this.utils.navback();
+					this.http
+						.getApi('/yunorder/delivery', { orderNo: this.inputshow, StoreUserId: item.storeId }, 'get', this.userlist.storeOpendid)
+						.then(res => {
+							uni.hideLoading();
+							console.log(res);
+							// this.confirmuser = null;
+							this.utils.success('发货成功！', () => {
+								// this.doUrl('/pages/user/login');
+								// this.utils.navback();
+							});
+						})
+						.catch(err => {
+							console.log(err);
+							uni.hideLoading();
 						});
-					})
-					.catch(err => {
-						console.log(err);
-						uni.hideLoading();
-					});
-					
-				} else{
+				} else {
 					this.utils.showloading();
-					this.http.getApi('/yunorder/delivery',{orderNo:this.inputshow,StoreUserId:item.storeId}, 'get', this.userlist.storeOpendid).then(res => {
-						uni.hideLoading();
-						console.log(res);
-						// this.confirmuser = null;
-						this.utils.success('发货成功！', () => {
-							// this.doUrl('/pages/user/login');
-							// this.utils.navback();
+					this.http
+						.getApi('/yunorder/delivery', { orderNo: this.inputshow, StoreUserId: item.storeId }, 'get', this.userlist.storeOpendid)
+						.then(res => {
+							uni.hideLoading();
+							console.log(res);
+							// this.confirmuser = null;
+							this.utils.success('发货成功！', () => {
+								// this.doUrl('/pages/user/login');
+								// this.utils.navback();
+							});
+						})
+						.catch(err => {
+							console.log(err);
+							uni.hideLoading();
 						});
-					})
-					.catch(err => {
-						console.log(err);
-						uni.hideLoading();
-					});
 				}
 			}
-			
-			
 		},
 		// 云仓进货发货
-		delivergoods(item){
+		delivergoods(item) {
 			this.utils.showloading();
-			this.http.getApi('/yunorder/delivery',{orderNo:item.orderNo,StoreUserId:item.storeId}, 'get', this.userlist.storeOpendid).then(res => {
-				uni.hideLoading();
-				console.log(res);
-				// this.confirmuser = null;
-				this.utils.success('发货成功！', () => {
-					this.userlistdata(this.pageNum);
+			this.http
+				.getApi('/yunorder/delivery', { orderNo: item.orderNo, StoreUserId: item.storeId }, 'get', this.userlist.storeOpendid)
+				.then(res => {
+					uni.hideLoading();
+					console.log(res);
+					// this.confirmuser = null;
+					this.utils.success('发货成功！', () => {
+						this.userlistdata(this.pageNum);
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					uni.hideLoading();
 				});
-			})
-			.catch(err => {
-				console.log(err);
-				uni.hideLoading();
-			});
 		},
 		//页码渲染
 		add(index) {
@@ -330,29 +336,31 @@ export default {
 			this.userlistdata(this.pageNum);
 		},
 		//查询所有
-		userlistdata(e){
+		userlistdata(e) {
 			this.utils.showloading();
-			this.http.getApi('/yunorder/getorder', {uid:0,pageNum:this.pageNum, pageSize:10}, 'get', this.userlist.storeOpendid).then(res => {
-				uni.hideLoading();
-				console.log(res);
-				if (res.data.list.length==0) {
-					this.menuLists = null;
-				} else{
-					console.log('------------------------------');
-					
-					// console.log(this.mensname.id);
-					this.menuLists = res.data.list;
-					console.log(this.menuLists);
-					this.pageNum = res.data.pageNum;
-					this.navigatepageNums = res.data.navigatepageNums;
-					this.total = res.data.total;
-					this.pageSize = res.data.pageSize;
-				}
-			})
-			.catch(err => {
-				console.log(err);
-				uni.hideLoading();
-			});
+			this.http
+				.getApi('/yunorder/getorder', { uid: 0, pageNum: this.pageNum, pageSize: 10 }, 'get', this.userlist.storeOpendid)
+				.then(res => {
+					uni.hideLoading();
+					console.log(res);
+					if (res.data.list.length == 0) {
+						this.menuLists = null;
+					} else {
+						console.log('------------------------------');
+
+						// console.log(this.mensname.id);
+						this.menuLists = res.data.list;
+						console.log(this.menuLists);
+						this.pageNum = res.data.pageNum;
+						this.navigatepageNums = res.data.navigatepageNums;
+						this.total = res.data.total;
+						this.pageSize = res.data.pageSize;
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					uni.hideLoading();
+				});
 		}
 	}
 };
@@ -363,103 +371,104 @@ export default {
 	width: 100%;
 	min-height: 1080px;
 	padding-right: 30px;
-	background-color: #F3F3F3;
+	background-color: #f3f3f3;
 }
 
-
 //弹窗样式
-	.pop_button {
-		margin-top: 260px;
-		width: 100%;
+.pop_button {
+	margin-top: 260px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 10px;
+	color: #ffffff;
+	background-color: #ffa600;
+}
+.server_pop {
+	padding: 30px;
+	.pop_tit {
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
 		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		font-size: 10px;
-		color: #ffffff;
-		background-color: #ffa600;
+		font-size: 30px;
+		color: #333333;
 	}
-	.server_pop {
-		padding: 30px;
-		.pop_tit {
-			justify-content: space-between;
+	.pop_num {
+		align-items: center;
+		font-size: 30px;
+		color: #333333;
+		.price_right {
+			width: 22%;
 			align-items: center;
-			margin-bottom: 10px;
-			height: 50px;
-			font-size: 30px;
-			color: #333333;
-		}
-		.pop_num{
-			align-items: center;
-			font-size: 30px;
-			color: #333333;
-			.price_right {
-				width: 22%;
-				align-items: center;
+			font-size: 10px;
+
+			.right_reduce {
+				color: #ffa600;
 				font-size: 10px;
-			
-				.right_reduce {
-					color: #FFA600;
-					font-size: 10px;
-					margin-right: 2px;
-				}
-			
-				.right_add {
-					color: #FFA600;
-					font-size: 10px;
-				}
+				margin-right: 2px;
 			}
-		}
-	
-		.pop_cont {
-			justify-content: flex-start;
-			align-items: center;
-			flex-wrap: wrap;
-			text{
-				font-size: 20px;
-				margin-bottom: 5px;
-			}
-			textarea{
-				margin-bottom: 5px;
-				border: #999999 1px solid;
-				padding: 5px 10px;
-			}
-	
-			.cont_item {
-				margin-bottom: 30px;
-				margin-right: 30px;
-				padding: 10px 20px;
-				text-align: center;
+
+			.right_add {
+				color: #ffa600;
 				font-size: 10px;
-				color: #a1a1a1;
-				border-radius: 15px;
-				border: 2px solid #f5f5f5;
-	
-				text {}
-	
-				&.active {
-					background-color: #ffa600;
-					color: #ffffff;
-				}
 			}
 		}
 	}
+
+	.pop_cont {
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		text {
+			font-size: 20px;
+			margin-bottom: 5px;
+		}
+		textarea {
+			margin-bottom: 5px;
+			border: #999999 1px solid;
+			padding: 5px 10px;
+		}
+
+		.cont_item {
+			margin-bottom: 30px;
+			margin-right: 30px;
+			padding: 10px 20px;
+			text-align: center;
+			font-size: 10px;
+			color: #a1a1a1;
+			border-radius: 15px;
+			border: 2px solid #f5f5f5;
+
+			text {
+			}
+
+			&.active {
+				background-color: #ffa600;
+				color: #ffffff;
+			}
+		}
+	}
+}
 
 // 右块
-.index_block{
+.index_block {
 	width: 87%;
 	height: 100%;
 	// border: #007AFF 1px solid;
-	padding:  10px 40px;
+	padding: 10px 40px;
 	text {
 		font-size: 20px;
 		color: #333333;
 	}
 	//用户快
-	.user_index{
+	.user_index {
 		min-height: 70px;
-		
-		text{
-			font-size: 20px;
+
+		text {
+			font-size: 25px;
+			font-weight: 700;
 			margin-left: 30px;
 		}
 	}
@@ -481,6 +490,7 @@ export default {
 			margin-left: 30px;
 			// color: #FF5733;
 			color: #ffffff;
+			cursor: pointer;
 			box-shadow: 1px 2px 6px #f55866;
 			background: linear-gradient(0deg, rgba(246, 62, 100, 1), rgba(244, 106, 103, 1));
 			border-radius: 15px;
@@ -488,7 +498,7 @@ export default {
 	}
 	//end
 	// 表格块
-	.block_noe_blck{
+	.block_noe_blck {
 		width: 100%;
 		// min-height: 700px;
 		margin-top: 20px;
@@ -501,7 +511,7 @@ export default {
 			height: 60px;
 			border-radius: 15px 15px 0 0;
 			// border: #4cd964 1px solid;
-		
+
 			text {
 				height: 100%;
 				font-size: 25px;
@@ -510,187 +520,182 @@ export default {
 				// border-radius: 15px 15px 0 0;
 				padding-left: 10px;
 				padding-right: 10px;
-				border-right: #C0C0C0 1px solid;
+				border-right: #c0c0c0 1px solid;
 			}
-			text:nth-child(1){
-				border-radius:15px 0  0 0;
+			text:nth-child(1) {
+				border-radius: 15px 0 0 0;
 			}
-			text:hover{
-				color: #FFFFFF;
-				background-color: #3F536E;
+			text:hover {
+				color: #ffffff;
+				background-color: #3f536e;
 			}
-			.block_noe_blck_hover{
-				color: #FFFFFF;
-				background-color: #DD524D;
+			.block_noe_blck_hover {
+				color: #ffffff;
+				background-color: #dd524d;
 			}
 		}
 		// end
-		.block_noe_blck_bk{
-				// padding: 10px 0;
-				// border: #999999 1px solid;
-				//特殊表格订单宽度
-				.block_noe_blck_order{
+		.block_noe_blck_bk {
+			// padding: 10px 0;
+			// border: #999999 1px solid;
+			//特殊表格订单宽度
+			.block_noe_blck_order {
+				width: 180px;
+				padding: 0;
+				text {
 					width: 180px;
-					padding: 0;
-					text{
-						width: 180px;
-						border-right: #999999 1px solid;
-					}
-					input{
-						width: 180px;
-						padding: 3px 10px;
-						text-align: center;
-						margin: 0 5px;
-						color: #333333;
-					}
-				}
-				.block_noe_blck_data{
-					width: 150px;
-					text{
-						width: 150px;
-					}
-					input{
-						width: 130px;
-						padding: 3px 10px;
-						text-align: center;
-					}
-					
-				}
-
-				.block_noe_blck_default{
-					width: 80px;
-					// border-radius: 5px;
-					
 					border-right: #999999 1px solid;
-					input{
-						padding: 3px 10px;
-						margin: 0 5px;
-						text-align: center;
-						color: #333333;
-					}
-					// box-shadow: 1px 2px 6px #c8c7cc;
 				}
-				.block_noe_blck_bk_tit{
-					font-weight: 900;
-					padding: 10px 0;
-					border-top: #999999 1px solid;
-					background-color: #C8C7CC;
-					text{
-						font-size: 20px;
-						padding: 0 5px;
-						// border: #007AFF 1px solid;
-					}
-				}
-				.content_list_one_bluser{
-					background-color: #DD524D;
-					// border: #000000 1px solid;
-					
-				}
-				.boderck{
-					background-color: #DD524D;
+				input {
+					width: 180px;
+					padding: 3px 10px;
+					text-align: center;
+					margin: 0 5px;
 					color: #333333;
-					text{
-						color: #FFFFFF;
-					}
-					input{
-						border-radius: 5px;
-						// color: #333333;
-						background-color: #FFFFFF;
-						box-shadow: 1px 2px 6px #c8c7cc;
-					}
 				}
-				.content_list_one_bl{
-					padding: 5px 0;
-					text{
-						font-size: 15px;
-						padding: 5px;
-						// border: #007AFF 1px solid;
-					}
-					
+			}
+			.block_noe_blck_data {
+				width: 150px;
+				text {
+					width: 150px;
 				}
-				.content_list_one_bl_default_user{
-					min-width: 70px;
-					padding: 5px 0;
-					justify-content: flex-start;
-					button{
-						// padding: 5px;
-						border-radius: 5px;
-						margin-right: 10px;
-						font-size: 15px;
-						color: #FFFFFF;
-						background-color: #DD524D;
-					}
+				input {
+					width: 130px;
+					padding: 3px 10px;
+					text-align: center;
 				}
-				.content_list_one_bl:nth-child(odd){
-						// background-color: #F1F1F1;
-						border-top: #999999 1px solid;
-						border-bottom: #999999 1px solid;
-					}
-				.content_list_one_bl:hover{
-					background-color: #DD524D;
-					text{
-						color: #FFFFFF;
-					}
-					input{
-						border-radius: 5px;
-						// color: #333333;
-						background-color: #FFFFFF;
-						box-shadow: 1px 2px 6px #c8c7cc;
-					}
-				}
-				.block_noe_blck_bk_tit,
-				.content_list_one_bl{
-					text{
-						min-width: 70px;
-						// padding: 0 5px;
-						border-right: #999999 1px solid;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-					}
-				}
-				.block_noe_blck_bk_two{
-					// padding: 10px 0;
-					// border: #007AFF 1px solid;
-					.content_list_one{
-						border-bottom: #999999 1px solid;
-					}
-					.pages{
-						justify-content: center;
-						.pages_tit{
-							padding: 5px 10px;
-							font-size: 20px;
-							border-radius: 10px;
-							border: #999999 1px solid;
-							justify-content: center;
-						}
-						.pages_number{
-							padding: 10px 20px;
-							// min-width: 100%;
-							text{
-								border: #999999 1px solid;
-								padding: 5px 15px;
-								font-size: 20px;
-								margin-right: 10px;
-								border-radius: 10px;
-							}
-							text:hover{
-								background-color: #DD524D;
-								color: #FFFFFF;
-							}
-						}
-						.pages_tit:hover{
-							background-color: #DD524D;
-							color: #FFFFFF;
-						}
-					}
-				}
-			
-		}
-		
-	}
-	
-	
-}
+			}
+			.block_noe_blck_payment {
+				color: #dd524d;
+			}
 
+			.block_noe_blck_default {
+				width: 80px;
+				// border-radius: 5px;
+
+				border-right: #999999 1px solid;
+				input {
+					padding: 3px 10px;
+					margin: 0 5px;
+					text-align: center;
+					color: #333333;
+				}
+				// box-shadow: 1px 2px 6px #c8c7cc;
+			}
+			.block_noe_blck_bk_tit {
+				font-weight: 900;
+				padding: 10px 0;
+				border-top: #999999 1px solid;
+				background-color: #c8c7cc;
+				text {
+					font-size: 20px;
+					padding: 0 5px;
+					// border: #007AFF 1px solid;
+				}
+			}
+			.content_list_one_bluser {
+				background-color: #dd524d;
+				// border: #000000 1px solid;
+			}
+			.boderck {
+				background-color: #dd524d;
+				color: #333333;
+				text {
+					color: #ffffff;
+				}
+				input {
+					border-radius: 5px;
+					// color: #333333;
+					background-color: #ffffff;
+					box-shadow: 1px 2px 6px #c8c7cc;
+				}
+			}
+			.content_list_one_bl {
+				padding: 5px 0;
+				text {
+					font-size: 15px;
+					padding: 5px;
+					// border: #007AFF 1px solid;
+				}
+			}
+			.content_list_one_bl_default_user {
+				min-width: 70px;
+				padding: 5px 0;
+				justify-content: flex-start;
+				button {
+					// padding: 5px;
+					border-radius: 5px;
+					margin-right: 10px;
+					font-size: 15px;
+					color: #ffffff;
+					background-color: #dd524d;
+				}
+			}
+			.content_list_one_bl:nth-child(odd) {
+				// background-color: #F1F1F1;
+				border-top: #999999 1px solid;
+				border-bottom: #999999 1px solid;
+			}
+			.content_list_one_bl:hover {
+				background-color: #dd524d;
+				text {
+					color: #ffffff;
+				}
+				input {
+					border-radius: 5px;
+					// color: #333333;
+					background-color: #ffffff;
+					box-shadow: 1px 2px 6px #c8c7cc;
+				}
+			}
+			.block_noe_blck_bk_tit,
+			.content_list_one_bl {
+				text {
+					min-width: 70px;
+					// padding: 0 5px;
+					border-right: #999999 1px solid;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+			.block_noe_blck_bk_two {
+				// padding: 10px 0;
+				// border: #007AFF 1px solid;
+				.content_list_one {
+					border-bottom: #999999 1px solid;
+				}
+				.pages {
+					justify-content: center;
+					.pages_tit {
+						padding: 5px 10px;
+						font-size: 20px;
+						border-radius: 10px;
+						border: #999999 1px solid;
+						justify-content: center;
+					}
+					.pages_number {
+						padding: 10px 20px;
+						// min-width: 100%;
+						text {
+							border: #999999 1px solid;
+							padding: 5px 15px;
+							font-size: 20px;
+							margin-right: 10px;
+							border-radius: 10px;
+						}
+						text:hover {
+							background-color: #dd524d;
+							color: #ffffff;
+						}
+					}
+					.pages_tit:hover {
+						background-color: #dd524d;
+						color: #ffffff;
+					}
+				}
+			}
+		}
+	}
+}
 </style>

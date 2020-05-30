@@ -21,7 +21,7 @@
 				<!-- 小标题栏 -->
 				<view class="block_noe_blck flex_columns">
 					<view class="block_noe_blck_tit flex-center flex_rows">
-						<text :class="item.id == sorttid2 ? 'block_noe_blck_hover' : ''" v-for="(item,index) in stourname" @click="sorttid2ck(item.id)">{{item.name}}</text>
+						<text :class="item.id == sorttid2 ? 'block_noe_blck_hover' : ''" v-for="(item,index) in stourname" :key='index' @click="sorttid2ck(item.id)">{{item.name}}</text>
 					</view>
 						<!-- 表格 -->
 					<view class="block_noe_blck_bk flex_columns">
@@ -31,6 +31,7 @@
 							<text>名字</text>
 							<text class="block_noe_blck_data">电话号码</text>
 							<text>数量</text>
+							<text>金额</text>
 							<text class="block_noe_blck_order">订单号</text>
 							<text class="block_noe_blck_order" v-if="sorttid2==2 || sorttid2==1">物流号</text>
 							<text class="block_noe_blck_data">创建时间</text>
@@ -42,7 +43,7 @@
 								<!-- 多个复选框，带全选 -->
 								<view class="content_list_one">
 									<view class="flex_columns" v-if="menuLists">
-										<view class="content_list_one_bl flex-center flex_rows" v-for="(item,index) in menuLists" v-if="sorttid2==2 || sorttid2==item.status">
+										<view class="content_list_one_bl flex-center flex_rows" v-for="(item,index) in menuLists" :key='index' v-if="sorttid2==2 || sorttid2==item.status">
 											<text>{{ index+1 }}</text>
 											<text>{{ item.id }}</text>
 											<text v-if="item.spaceOne">{{ item.spaceOne }}</text>
@@ -51,6 +52,7 @@
 											<text v-if="menuLists.id==3">{{ item.spareThree }}</text> -->
 											<text class="block_noe_blck_data">{{ item.storePhone }}</text>
 											<text>{{item.quantity}}</text>
+											<text class="block_noe_blck_payment">￥{{ item.payment }}</text>
 											<text class="block_noe_blck_order">{{ item.orderNo }}</text>
 											<text class="block_noe_blck_order" v-if="item.fastmail!=null">{{ item.fastmail }}</text>
 											<text class="block_noe_blck_data" v-if="item.createTime">{{ item.createTime.substring(0,16)}}</text>
@@ -312,7 +314,8 @@ export default {
 		min-height: 70px;
 		
 		text{
-			font-size: 20px;
+			font-size: 25px;
+			font-weight: 700;
 			margin-left: 30px;
 		}
 	}
@@ -334,6 +337,7 @@ export default {
 			margin-left: 30px;
 			// color: #FF5733;
 			color: #ffffff;
+			cursor: pointer;
 			box-shadow: 1px 2px 6px #f55866;
 			background: linear-gradient(0deg, rgba(246, 62, 100, 1), rgba(244, 106, 103, 1));
 			border-radius: 15px;
@@ -408,6 +412,9 @@ export default {
 						text-align: center;
 					}
 					
+				}
+				.block_noe_blck_payment {
+					color: #dd524d;
 				}
 
 				.block_noe_blck_default{
